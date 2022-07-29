@@ -1,0 +1,26 @@
+.bar-styling {
+  height: 4vh;
+  border-bottom: solid 1px grey;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.inline-box {
+  display: inline-flex;
+  align-items: center;
+}
+
+.justify-between {
+  width: 100%;
+  justify-content: space-between;
+}
+
+.margin-left-10 {
+  margin-left: 10px;
+}
+
+.margin-right-10 {
+  margin-right: 10px;
+  position: absolute;
+  right: 10px;
+}

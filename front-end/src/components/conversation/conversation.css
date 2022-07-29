@@ -1,0 +1,43 @@
+.viewport {
+  max-width: 60%;
+  margin: auto;
+  border: solid 1px grey;
+  border-top: unset;
+  border-bottom: unset;
+  height: 92vh;
+  box-sizing: border-box;
+  background: ghostwhite;
+}
+
+.view-message-box {
+  height: 70vh;
+  border-bottom: solid 1px gray;
+  box-sizing: border-box;
+  overflow-y: scroll;
+}
+
+.view-message-box::-webkit-scrollbar {
+  display: none;
+}
+
+.new-message-box {
+  height: 22vh;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.new-message {
+  width: 60%;
+  height: 60%;
+}
+
+.message-button {
+  height: 20%;
+  border-radius: 4px;
+  border: solid 1px grey;
+}
+
+.message-button:hover {
+  cursor: pointer;
+}
