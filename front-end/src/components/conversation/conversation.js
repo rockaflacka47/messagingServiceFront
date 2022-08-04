@@ -1,11 +1,19 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { selectUser } from "./../../slices/userSlice";
+import { setNotification } from "../../slices/notificationSlice";
 import "./conversation.css";
 
 import { Message } from "../message/message";
 
 export function Conversation(conversation) {
+  const useForceRerendering = () => {
+    const [counter, setCounter] = React.useState(0);
+    return () => setCounter((counter) => counter + 1);
+  };
+
+  // add hook at beginning of a component:
+  const forceRerendering = useForceRerendering();
   const user = useSelector(selectUser);
   const dispatch = useDispatch();
   const [error, setError] = useState(null);
@@ -20,9 +28,15 @@ export function Conversation(conversation) {
       ? conversation.value.user_one
       : conversation.value.user_two;
 
+  useForceRerendering();
   useEffect(() => {
+    console.log("in");
+
     loadMessages();
-  }, []);
+    return () => {
+      setPageNum(0);
+    };
+  }, [conversation]);
 
   const loadMessages = () => {
     if (pageNum !== -1) {
@@ -78,6 +92,9 @@ export function Conversation(conversation) {
         (result) => {
           setMessages((current) => [...current, result]);
           setMessage("");
+          dispatch(
+            setNotification({ text: "hello", error: true, visible: true })
+          );
         },
 
         (error) => {

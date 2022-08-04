@@ -32,6 +32,16 @@
   background: #b1b2af;
 }
 
+.new-convo-form-background {
+  margin-left: 15%;
+  display: inline-flex;
+  width: 85%;
+  background: #b1b2af;
+  height: 96vh;
+  justify-content: center;
+  align-items: center;
+}
+
 .bar-styling {
   height: 4vh;
   border-bottom: solid 1px grey;
@@ -60,4 +70,25 @@
 
 .absolute:hover {
   cursor: pointer;
+}
+
+.offwhite-background {
+  background: ghostwhite;
+  width: 40%;
+  height: 40%;
+}
+
+.notification {
+  margin-left: 15%;
+  position: absolute;
+  bottom: 15px;
+  display: flex;
+  justify-self: center;
+  width: 40%;
+  justify-content: center;
+}
+
+.display-flex {
+  display: flex;
+  justify-content: center;
 }

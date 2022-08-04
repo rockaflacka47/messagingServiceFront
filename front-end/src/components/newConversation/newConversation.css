@@ -1,0 +1,46 @@
+.input-field {
+  display: flex;
+  height: 20%;
+  width: 60%;
+  align-items: center;
+  justify-content: center;
+}
+
+.message-area {
+  display: flex;
+  height: 40%;
+  width: 60%;
+  align-items: center;
+  justify-content: center;
+}
+
+.height-100 {
+  height: 100%;
+}
+
+.width-100 {
+  width: 100%;
+}
+
+.input-box {
+  width: 100%;
+  height: 40%;
+  border: solid 1px grey;
+  border-radius: 4px;
+}
+
+.message-box {
+  height: 60%;
+  width: 100%;
+  border: solid 1px grey;
+  border-radius: 4px;
+}
+
+.container {
+  height: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  align-content: space-evenly;
+}

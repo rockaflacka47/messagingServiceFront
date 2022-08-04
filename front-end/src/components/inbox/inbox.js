@@ -6,13 +6,21 @@ import "./inbox.css";
 
 import { Tile } from "./tile";
 import { Conversation } from "../conversation/conversation";
+import { NewConversation } from "../newConversation/newConversation";
+import { Notification } from "../notification/notification";
+import {
+  selectNotification,
+  setNotification,
+} from "../../slices/notificationSlice";
 
 export function Inbox() {
   const user = useSelector(selectUser);
+  const notification = useSelector(selectNotification);
   const dispatch = useDispatch();
   const [error, setError] = useState(null);
   const [isLoaded, setIsLoaded] = useState(false);
   const [conversations, setConversations] = useState([]);
+  const [isNotification, setIsNotification] = useState(false);
   const [selected, setSelected] = useState(null);
   const [otherName, setOtherName] = useState(null);
 
@@ -38,10 +46,19 @@ export function Inbox() {
             setError(error);
           }
         );
+    } else {
+      setIsLoaded(false);
+      setConversations([]);
     }
   }, [user]);
 
+  useEffect(() => {
+    setIsNotification(true);
+  }, [notification]);
+
   let selectConvo = (conversation) => {
+    setSelected(null);
+    setOtherName(null);
     setOtherName(
       conversation.user_one_name === user.payload.name
         ? conversation.user_two_name
@@ -55,7 +72,7 @@ export function Inbox() {
     setOtherName(null);
   };
   return (
-    <div>
+    <div className="display-flex">
       <div className="inbox-format">
         {conversations.map((conversation) => (
           <div
@@ -78,7 +95,30 @@ export function Inbox() {
             </h6>
             <h6>{otherName}</h6>
           </div>
-          <Conversation value={selected} />
+          {selected && <Conversation value={selected} />}
+        </div>
+      )}
+      {selected === null && user.payload && (
+        <div className="new-convo-form-background">
+          <div className="offwhite-background">
+            <NewConversation />
+          </div>
+        </div>
+      )}
+      {selected === null && !user.payload && (
+        <div className="new-convo-form-background">
+          <div className="offwhite-background">
+            <p>Please login to see functionality</p>
+          </div>
+        </div>
+      )}
+      {isNotification && (
+        <div className="notification">
+          <Notification
+            value={notification.text}
+            error={notification.error}
+            visible={notification.visible}
+          />
         </div>
       )}
     </div>

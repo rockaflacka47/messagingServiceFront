@@ -24,3 +24,17 @@
   position: absolute;
   right: 10px;
 }
+
+.login-box {
+  position: absolute;
+  right: 1vw;
+  top: 4vh;
+  border: solid 1px black;
+  background: ghostwhite;
+  min-height: 15%;
+  display: flex;
+}
+
+.pointer:hover {
+  cursor: pointer;
+}
