@@ -2,15 +2,19 @@ import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { setNotification } from "../../slices/notificationSlice";
 import { setUser, selectUser } from "./../../slices/userSlice";
+import { useCookies } from "react-cookie";
 import "./login.css";
 export function Login() {
+  //const [cookies, setCookie] = useCookies(["user"]);
   const user = useSelector(selectUser);
   const dispatch = useDispatch();
+
   const [number, setNumber] = useState("");
   const [password, setPassword] = useState("");
   const [showLogin, setShowLogin] = useState(true);
   const [username, setUsername] = useState("");
   const [name, setName] = useState("");
+
   const doLogin = (event) => {
     event.preventDefault();
     if (showLogin) {
@@ -40,6 +44,9 @@ export function Login() {
       };
 
       FetchUser();
+      // setCookie("Name", name, { path: "/" });
+      // setCookie("Password", password, { path: "/" });
+      // setCookie("User", user, { path: "/" });
     } else {
       const requestOptions = {
         method: "POST",
@@ -90,7 +97,9 @@ export function Login() {
             </div>
 
             <div className="width-100">
-              <button type="submit">Login</button>
+              <button type="submit" className="button">
+                Login
+              </button>
             </div>
             <div className="width-100">
               <p
@@ -138,7 +147,9 @@ export function Login() {
             </div>
 
             <div className="width-100">
-              <button type="submit">Create Account</button>
+              <button type="submit" className="button">
+                Create Account
+              </button>
             </div>
             <div className="width-100">
               <p

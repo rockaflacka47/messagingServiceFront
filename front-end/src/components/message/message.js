@@ -5,7 +5,10 @@ import "./message.css";
 
 export function Message(message) {
   const user = useSelector(selectUser);
-  const sentByMe = message.value.user_id === user.payload.id;
+  let sentByMe;
+  if (user.payload) {
+    sentByMe = message.value.user_id === user.payload.id;
+  }
 
   const Banner = () => (
     <div className={`flex ${!sentByMe ? "justify-right" : ""}`}>

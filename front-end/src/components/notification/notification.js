@@ -21,22 +21,19 @@ export function Notification(props) {
     dispatch(setNotification({ visible: false }));
   };
   const Banner = () => (
-    console.log(props),
-    (
-      <div
-        className={`notification-bubble ${
-          props.error ? "red-background" : "green-background"
-        } ${props.visible ? "" : "invisible"}`}
+    <div
+      className={`notification-bubble ${
+        props.error ? "red-background" : "green-background"
+      } ${props.visible ? "" : "invisible"}`}
+    >
+      <p className="margin-left-10">{text}</p>
+      <p
+        onClick={() => closeNotification()}
+        className="margin-right-10 pointer"
       >
-        <p className="margin-left-10">{text}</p>
-        <p
-          onClick={() => closeNotification()}
-          className="margin-right-10 pointer"
-        >
-          close
-        </p>
-      </div>
-    )
+        close
+      </p>
+    </div>
   );
   return Banner();
 }

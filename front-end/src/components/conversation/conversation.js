@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { selectUser } from "./../../slices/userSlice";
+import { io } from "socket.io-client";
 import { setNotification } from "../../slices/notificationSlice";
 import "./conversation.css";
 
@@ -22,23 +23,60 @@ export function Conversation(conversation) {
   const [message, setMessage] = useState("");
   const [pageNum, setPageNum] = useState(0);
   const [initialLoad, setInitialLoad] = useState(true);
+  const [bottomScroll, setBottomScroll] = useState(false);
+  const [height, setHeight] = useState(0);
+  var element;
 
-  const otherPerson =
-    user.payload.id === conversation.value.user_one
-      ? conversation.value.user_one
-      : conversation.value.user_two;
+  const socket = io(":3331");
+  socket.connect();
+  let otherPerson;
 
-  useForceRerendering();
+  if (user.payload) {
+    otherPerson =
+      user.payload.id === conversation.value.user_one
+        ? conversation.value.user_two
+        : conversation.value.user_one;
+  }
+
   useEffect(() => {
-    console.log("in");
+    setPageNum(0);
+    setBottomScroll(false);
+    setHeight(0);
+    setMessages([]);
 
-    loadMessages();
-    return () => {
-      setPageNum(0);
-    };
+    setMessage("");
+    setIsLoaded(false);
+    setInitialLoad(true);
+
+    return () => {};
   }, [conversation]);
 
+  useEffect(() => {
+    socket.on("connect", () => {
+      //
+    });
+    socket.on("newMessage", (newMessage) => {
+      if (
+        newMessage.message.user_id === otherPerson &&
+        conversation.value.id === newMessage.message.conversation_id
+      ) {
+        setMessages((current) => [...current, newMessage.message]);
+      }
+    });
+    return () => {
+      socket.off("connect");
+      socket.off("newMessage");
+      //
+    };
+  }, []);
+  useEffect(() => {
+    if (initialLoad) {
+      loadMessages();
+    }
+  }, [initialLoad]);
+
   const loadMessages = () => {
+    //debugger;
     if (pageNum !== -1) {
       const requestOptions = {
         method: "POST",
@@ -57,8 +95,14 @@ export function Conversation(conversation) {
             } else {
               setMessages((current) => [...result.data, ...current]);
             }
+            // element = document.getElementById("messages");
+            // element.addEventListener("scroll", loadMore);
+            // element.scrollTop = element.scrollHeight;
             setPageNum(result.nextPage);
             setIsLoaded(true);
+            if (initialLoad) {
+              setInitialLoad(false);
+            }
           },
           // Note: it's important to handle errors here
           // instead of a catch() block so that we don't swallow
@@ -76,6 +120,8 @@ export function Conversation(conversation) {
   };
 
   const sendMessage = () => {
+    console.log(user.payload.id);
+    console.log(otherPerson);
     const requestOptions = {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -90,11 +136,8 @@ export function Conversation(conversation) {
       .then((res) => res.json())
       .then(
         (result) => {
-          setMessages((current) => [...current, result]);
+          setMessages((current) => [...current, result.message]);
           setMessage("");
-          dispatch(
-            setNotification({ text: "hello", error: true, visible: true })
-          );
         },
 
         (error) => {
@@ -103,19 +146,16 @@ export function Conversation(conversation) {
         }
       );
   };
-
-  var element = document.getElementById("messages");
-  function updateScroll() {
-    if (initialLoad) {
-      element.scrollTop = element.scrollHeight;
-      setInitialLoad(false);
-    }
-  }
-
+  element = document.getElementById("messages");
+  // height = element.scrollHeight;
   useEffect(() => {
     if (messages.length > 0) {
-      element.addEventListener("scroll", loadMore);
-      updateScroll();
+      console.log(element.scrollHeight);
+      if (!bottomScroll) {
+        element.addEventListener("scroll", loadMore);
+        element.scrollTop = element.scrollHeight;
+        setBottomScroll(true);
+      }
       return () => {
         // Anything in here is fired on component unmount.
         element.removeEventListener("scroll", loadMore);
@@ -123,12 +163,21 @@ export function Conversation(conversation) {
     }
   }, [messages]);
 
+  useEffect(() => {
+    console.log("here");
+    if (element && element.scrollHeight) {
+      console.log("setting hehight");
+      setHeight(element.scrollHeight);
+    }
+  }, [element]);
+
   function loadMore() {
     if (element.scrollTop === 0) {
       loadMessages();
+      element.scrollTop = element.scrollHeight - height;
+      setHeight(element.scrollHeight);
     }
   }
-
   return (
     <div className="viewport">
       <div className="view-message-box" id="messages">

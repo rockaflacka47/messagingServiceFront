@@ -92,3 +92,19 @@
   display: flex;
   justify-content: center;
 }
+
+.search-box {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 4vh;
+  border-bottom: 1px solid grey;
+}
+
+.search-input {
+  width: 90%;
+  border: 1px solid black;
+  border-radius: 100px;
+  text-align: center;
+  min-height: 30px;
+}

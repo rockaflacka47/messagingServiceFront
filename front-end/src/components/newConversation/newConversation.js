@@ -2,8 +2,10 @@ import React, { useState } from "react";
 import { selectUser } from "./../../slices/userSlice";
 import { useSelector, useDispatch } from "react-redux";
 import "./newConversation.css";
+import { addConvo } from "../../slices/inboxSlice";
 export function NewConversation() {
   const user = useSelector(selectUser);
+  const dispatch = useDispatch();
   const [name, setName] = useState("");
   const [number, setNumber] = useState("");
   const [body, setBody] = useState("");
@@ -23,6 +25,8 @@ export function NewConversation() {
       .then((res) => res.json())
       .then(
         (result) => {
+          console.log(result);
+          dispatch(addConvo(result.convo));
           //   setMessages((current) => [...current, result]);
           //   setMessage("");
         },
