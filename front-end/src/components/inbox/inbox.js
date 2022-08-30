@@ -31,7 +31,7 @@ export function Inbox() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ user_id: user.payload.id, archived: false }),
       };
-      fetch("http://localhost:3333/conversation/getConvos", requestOptions)
+      fetch("http://127.0.0.1:3333/api/conversation/getConvos", requestOptions)
         .then((res) => res.json())
         .then(
           (result) => {

@@ -29,7 +29,8 @@ export function Login() {
 
       const FetchUser = async () => {
         const response = await fetch(
-          "http://localhost:3333/user/doLogin",
+          "http://127.0.0.1:3333/api/user/doLogin",
+          //"http://localhost:3333/api/user/doLogin",
           requestOptions
         );
         const data = await response.json();
@@ -60,7 +61,7 @@ export function Login() {
 
       const createUser = async () => {
         const response = await fetch(
-          "http://localhost:3333/user/createUser",
+          "http://localhost:3333/api/user/createUser",
           requestOptions
         );
         const data = await response.json();

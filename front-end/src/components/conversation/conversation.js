@@ -86,7 +86,7 @@ export function Conversation(conversation) {
           page: pageNum,
         }),
       };
-      fetch("http://localhost:3333/message/getForConvoPage", requestOptions)
+      fetch("http://localhost:3333/api/message/getForConvoPage", requestOptions)
         .then((res) => res.json())
         .then(
           (result) => {
@@ -132,7 +132,7 @@ export function Conversation(conversation) {
         body: message,
       }),
     };
-    fetch("http://localhost:3333/message/sendMessage", requestOptions)
+    fetch("http://localhost:3333/api/message/sendMessage", requestOptions)
       .then((res) => res.json())
       .then(
         (result) => {
