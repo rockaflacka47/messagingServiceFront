@@ -20,7 +20,7 @@ export function Login() {
     if (showLogin) {
       const requestOptions = {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: { "Content-Type": "application/json", "Access-Control-Allow-Origin": "*" },
         body: JSON.stringify({
           password: password,
           number: number,
