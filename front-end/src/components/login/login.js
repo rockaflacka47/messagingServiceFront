@@ -29,7 +29,7 @@ export function Login() {
 
       const FetchUser = async () => {
         const response = await fetch(
-          "http://127.0.0.1:3333/api/user/doLogin",
+          "http://http://15.237.36.201/:3333/api/user/doLogin",
           //"http://localhost:3333/api/user/doLogin",
           requestOptions
         );
