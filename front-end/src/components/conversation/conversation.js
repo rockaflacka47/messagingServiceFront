@@ -27,7 +27,7 @@ export function Conversation(conversation) {
   const [height, setHeight] = useState(0);
   var element;
 
-  const socket = io(":3331");
+  const socket = io("http://localhost:3331");
   socket.connect();
   let otherPerson;
 
