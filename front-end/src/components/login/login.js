@@ -62,7 +62,7 @@ export function Login() {
 
       const createUser = async () => {
         const response = await fetch(
-          "http://localhost:3333/api/user/createUser",
+          "https://messagingservice.david-rocker.com/api/user/createUser",
           requestOptions
         );
         const data = await response.json();

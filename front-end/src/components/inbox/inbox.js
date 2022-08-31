@@ -31,7 +31,7 @@ export function Inbox() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ user_id: user.payload.id, archived: false }),
       };
-      fetch("http://127.0.0.1:3333/api/conversation/getConvos", requestOptions)
+      fetch("https://messagingservice.david-rocker.com/api/conversation/getConvos", requestOptions)
         .then((res) => res.json())
         .then(
           (result) => {

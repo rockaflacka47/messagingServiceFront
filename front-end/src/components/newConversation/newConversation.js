@@ -21,7 +21,7 @@ export function NewConversation() {
         body: body,
       }),
     };
-    fetch("http://localhost:3333/message/sendMessage", requestOptions)
+    fetch("https://messagingservice.david-rocker.com/api/message/sendMessage", requestOptions)
       .then((res) => res.json())
       .then(
         (result) => {

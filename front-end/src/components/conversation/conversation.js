@@ -27,7 +27,7 @@ export function Conversation(conversation) {
   const [height, setHeight] = useState(0);
   var element;
 
-  const socket = io("http://localhost:3331");
+  const socket = io("https://messagingservice.david-rocker.com:3331");
   socket.connect();
   let otherPerson;
 
@@ -86,7 +86,7 @@ export function Conversation(conversation) {
           page: pageNum,
         }),
       };
-      fetch("http://localhost:3333/api/message/getForConvoPage", requestOptions)
+      fetch("https://messagingservice.david-rocker.com/api/message/getForConvoPage", requestOptions)
         .then((res) => res.json())
         .then(
           (result) => {
@@ -132,7 +132,7 @@ export function Conversation(conversation) {
         body: message,
       }),
     };
-    fetch("http://localhost:3333/api/message/sendMessage", requestOptions)
+    fetch("https://messagingservice.david-rocker.com/api/message/sendMessage", requestOptions)
       .then((res) => res.json())
       .then(
         (result) => {
