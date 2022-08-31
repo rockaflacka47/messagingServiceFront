@@ -30,7 +30,7 @@ export function Login() {
       const FetchUser = async () => {
         const response = await fetch(
           "https://messagingservice.david-rocker.com/api/user/doLogin",
-          "https://127.0.0.1:3333/api/user/doLogin",
+          //"https://127.0.0.1:3333/api/user/doLogin",
           //"http://localhost:3333/api/user/doLogin",
           requestOptions
         );
