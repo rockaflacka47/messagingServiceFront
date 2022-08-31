@@ -29,7 +29,7 @@ export function Login() {
 
       const FetchUser = async () => {
         const response = await fetch(
-          "https://localhost:3333/api/user/doLogin",
+          "http://localhost:3333/api/user/doLogin",
           //"http://localhost:3333/api/user/doLogin",
           requestOptions
         );
