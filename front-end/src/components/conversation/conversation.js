@@ -27,7 +27,7 @@ export function Conversation(conversation) {
   const [height, setHeight] = useState(0);
   var element;
 
-  const socket = io("https://messagingservice.david-rocker.com:3331");
+  const socket = io("https://messagingservice.david-rocker.com:3331/socket.io");
   socket.connect();
   let otherPerson;
 
